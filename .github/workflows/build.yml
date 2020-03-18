@@ -1,0 +1,62 @@
+name: build
+
+on:
+  - push
+
+env:
+  # TODO: Uncomment this if running locally
+  # RUNNER_TEMP: /tmp
+  CI: true
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  NPM_TOKEN: ${{ secrets.GH_TOKEN }}
+  GIT_AUTHOR_NAME: '@adamelliotfields'
+  GIT_COMMITTER_NAME: '@adamelliotfields'
+  GIT_AUTHOR_EMAIL: 'adam.elliot.fields@gmail.com'
+  GIT_COMMITTER_EMAIL: 'adam.elliot.fields@gmail.com'
+
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone
+        uses: actions/checkout@v2
+
+      - name: Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package.json') }}
+          restore-keys: |
+            npm-
+
+      # TODO: Uncomment this if running locally
+      # - name: node-gyp
+      #   run: sudo apt-get update && sudo apt-get install -y --no-install-recommends python make g++
+
+      - name: NPM
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm run test -- --coverage
+
+      - name: Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: './coverage/clover.xml'
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+
+      - name: Build
+        run: npm run build
+
+      - name: Release
+        if: github.ref == 'refs/head/master'
+        run: npm run semantic-release

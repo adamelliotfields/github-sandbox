@@ -21,7 +21,7 @@
   "types": "dist/index.d.ts",
   "repository": "https://github.com/adamelliotfields/github-sandbox.git",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/adamelliotfields"
   },
   "scripts": {
     "build": "run-s clean bundle",
@@ -29,7 +29,7 @@
     "clean": "rimraf dist",
     "clean:coverage": "rimraf coverage",
     "lint": "eslint --ext='.ts' 'src/**/*'",
-    "prepublish": "run-s build",
+    "prepublishOnly": "run-s build",
     "semantic-release": "semantic-release",
     "test": "cross-env NODE_ENV=test jest"
   },

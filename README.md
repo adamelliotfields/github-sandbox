@@ -2,7 +2,7 @@
 
 # Semantic Release Example
 
-![release](https://badgen.net/github/release/adamelliotfields/github-sandbox?icon=github) ![workflow](https://github.com/adamelliotfields/github-sandbox/workflows/build/badge.svg) ![coverage](https://badgen.net/codecov/c/github/babel/babel?icon=codecov&label=coverage) ![dependabot](https://badgen.net/dependabot/adamelliotfields/github-sandbox?icon=dependabot)
+![release](https://badgen.net/github/release/adamelliotfields/github-sandbox?icon=github) ![workflow](https://github.com/adamelliotfields/github-sandbox/workflows/build/badge.svg) ![coverage](https://badgen.net/codecov/c/github/adamelliotfields/github-sandbox?icon=codecov&label=coverage) ![dependabot](https://badgen.net/dependabot/adamelliotfields/github-sandbox?icon=dependabot)
 
 > An example project to experiment with GitHub features.
 
@@ -63,6 +63,9 @@ important rules to enable are:
 
 Note that the **Branches** settings will not be available until you've pushed to a branch.
 
+That having been said, I wouldn't recommend locking down your repository until you've got the
+initial scaffolding in place.
+
 ### Merge button
 
 Under **Options**, uncheck **Allow merge commits** and **Allow rebase merging** as we only want
@@ -78,6 +81,24 @@ At this time, GitHub Packages only supports `@scoped/packages` so it's important
 your package (in `package.json`) be scoped to your organization. Also make sure the `repository`
 points to your repository on GitHub, and finally, add a `publishConfig` to ensure you don't
 accidentally publish to your NPM account.
+
+All package publishing will be handled by `semantic-release`. However, I recommending publishing
+your first release manually:
+
+```bash
+git tag v0.1.0
+git push --tags origin
+
+touch .npmrc
+
+# Your authToken is your GitHub Personal Access Token
+cat <<EOF > .npmrc
+@adamelliotfields:registry=https://npm.pkg.github.com/adamelliotfields
+//npm.pkg.github.com/:_authToken=
+EOF
+
+npm publish
+```
 
 ## Dependabot
 
