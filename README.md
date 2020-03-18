@@ -2,7 +2,7 @@
 
 # Semantic Release Example
 
-![release](https://badgen.net/github/release/adamelliotfields/github-sandbox?icon=github) ![workflow](https://github.com/adamelliotfields/github-sandbox/workflows/build/badge.svg) ![dependabot](https://badgen.net/dependabot/adamelliotfields/github-sandbox?icon=dependabot)
+![release](https://badgen.net/github/release/adamelliotfields/github-sandbox?icon=github) ![workflow](https://github.com/adamelliotfields/github-sandbox/workflows/build/badge.svg) ![coverage](https://badgen.net/codecov/c/github/babel/babel?icon=codecov&label=coverage) ![dependabot](https://badgen.net/dependabot/adamelliotfields/github-sandbox?icon=dependabot)
 
 > An example project to experiment with GitHub features.
 
