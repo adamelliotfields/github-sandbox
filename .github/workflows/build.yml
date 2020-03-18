@@ -58,5 +58,6 @@ jobs:
         run: npm run build
 
       - name: Release
-        if: github.ref == 'refs/head/master'
-        run: npm run semantic-release
+        # if: github.ref == 'refs/head/master'
+        # run: npm run semantic-release
+        run: echo 'github.ref ${{ github.ref }}'
