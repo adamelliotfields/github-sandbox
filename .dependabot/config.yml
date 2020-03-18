@@ -4,9 +4,7 @@ update_configs:
   - package_manager: javascript
     directory: '/'
     update_schedule: weekly
-
-default_reviewers:
-  - adamelliotfields
-
-default_labels:
-  - dependabot
+    default_reviewers:
+      - adamelliotfields
+    default_labels:
+      - dependabot
