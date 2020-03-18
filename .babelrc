@@ -1,0 +1,6 @@
+{
+  "presets": [
+    ["@babel/env", { "targets": { "node": "10.19.0" } }],
+    "@babel/typescript"
+  ]
+}

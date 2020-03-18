@@ -1,0 +1,24 @@
+{
+  "root": true,
+  "extends": ["airbnb-base", "plugin:prettier/recommended"],
+  "env": {
+    "jest": true
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts"],
+      "extends": ["airbnb-base", "plugin:prettier/recommended", "plugin:import/typescript"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"],
+      "rules": {
+        "import/extensions": [
+          "error",
+          "ignorePackages",
+          {
+            "ts": "never"
+          }
+        ]
+      }
+    }
+  ]
+}
