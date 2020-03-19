@@ -1,39 +1,54 @@
-# GitHub Sandbox
+<h1 align="center">
+  GitHub Sandbox
+</h1>
 
-# Semantic Release Example
-
-![release](https://badgen.net/github/release/adamelliotfields/github-sandbox?icon=github) ![workflow](https://github.com/adamelliotfields/github-sandbox/workflows/build/badge.svg) ![coverage](https://badgen.net/codecov/c/github/adamelliotfields/github-sandbox?icon=codecov&label=coverage) ![dependabot](https://badgen.net/dependabot/adamelliotfields/github-sandbox?icon=dependabot)
+<p align="center">
+  <a href="https://github.com/adamelliotfields/github-sandbox/releases" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/github/v/release/adamelliotfields/github-sandbox?logo=github&color=brightgreen" alt="" />
+  </a>
+  <a href="https://github.com/adamelliotfields/github-sandbox/actions" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/github/workflow/status/adamelliotfields/github-sandbox/build?logo=github" alt="build">
+  </a>
+  <a href="https://codecov.io/gh/adamelliotfields/github-sandbox" target="_blank" rel="noopener noreferrer">
+    <img src="https://badgen.net/codecov/c/github/adamelliotfields/github-sandbox?icon=codecov&label=codecov" alt="codecov" />
+  </a>
+  <img src="https://badgen.net/dependabot/adamelliotfields/github-sandbox?icon=dependabot&label=dependabot" alt="dependabot" />
+</p>
 
 > An example project to experiment with GitHub features.
 
 This is a place to play around with GitHub features like Actions, Packages, and Releases.
 
-This is not intended to be a tutorial for the general public, but if you found it from Google and
+This is not intended to be a tutorial for the general public but if you found it from Google and
 need help with something or have a suggestion just open an [issue](https://github.com/adamelliotfields/github-sandbox/issues).
 
 ## Prerequisites
 
-You need to create a GitHub [Personal Access Token](https://github.com/settings/tokens) with `repo`
-and `packages` scopes.
+- Create a GitHub [Personal Access Token](https://github.com/settings/tokens) with `repo` and
+  `packages` scopes. Store this token as a secret named `GH_TOKEN` in your respository.
+- Enable the [Codecov](https://github.com/marketplace/codecov) app from the GitHub marketplace. You
+  will also need to generate a Codecov [Upload Token](https://docs.codecov.io/docs/frequently-asked-questions#section-where-is-the-repository-upload-token-found)
+  and store it in a secret named `CODECOV_TOKEN` in your repository.
+- Enable the [Dependabot Preview](https://github.com/marketplace/dependabot-preview) app from GitHub
+  Marketplace.
 
 ## Actions
 
-Actions are automated jobs that can run on repository events (i.e., on pushing or on creating a pull
+Actions are automated jobs that can run on repository events (e.g., on pushing or on creating a pull
 request) or on a schedule, like a cron job. They are not limited to just CI/CD.
 
-Actions are written in YAML and live in the [`.github/workflows`](./.github/workflows) folder in
-your project. You can have multiple workflow files and you can name them whatever you want (i.e.,
-`test.yml` like Bootstrap or `main.yml` like Redux).
+Multiple Actions make up a Workflow. Workflows are written in YAML and live in the [`.github/workflows`](./.github/workflows)
+folder in your project. You can have multiple Workflow files and you can name them whatever you want
+(e.g., `test.yml` like Bootstrap or `main.yml` like Redux). If you use README badges, the name of
+the Workflow is shown in the badge (so to get "build passing" you have to name your Workflow
+"build").
 
-Actions can also be shared and GitHub has provided many "official" actions (i.e., `checkout`,
+Actions can also be shared and GitHub has provided many "official" actions (e.g., `checkout`,
 `cache`, and `setup-node`). You can also reference a specific tag (or branch/commit) of an action to
 use (e.g., `checkout@v2`).
 
 You can also run your actions locally in Docker containers using the [`act`](https://github.com/nektos/act)
 tool.
-
-The workflow in this project requires the `GH_TOKEN` secret to be set in your repository settings.
-The value should be your Personal Access Token.
 
 ## Releases
 
@@ -41,7 +56,14 @@ We'll use GitHub Releases instead of manually updating a Changelog. To automate 
 [`semantic-release`](https://github.com/semantic-release/semantic-release) in conjunction with the
 [Angular Commit Message Format](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines).
 
-You'll need to create a secret to store your Personal Access Token.
+You can use a tool like [`commitizen`](https://github.com/commitizen/cz-cli) to enforce a convention
+for your commit messages if you want.
+
+Review the [default rules matching](https://github.com/semantic-release/commit-analyzer/blob/v8.0.1/README.md#default-rules-matching)
+to understand when `semantic-release` creates a release. It might make sense to merge all of your
+Pull Requests into a `dev` or `next` branch and merge that branch into `master` only when you're
+ready to release. You can also always pass `no-release` to the scope of the commit message to
+prevent a release.
 
 You can run `semantic-release` locally. Without the `CI` environment variable set, it will default
 to dry-run mode. However, you will need to assign the `GH_TOKEN` and `NPM_TOKEN` environment
@@ -51,29 +73,6 @@ variables to your Personal Access Token:
 export GH_TOKEN=
 export NPM_TOKEN=
 ```
-
-### Branch protection rules
-
-You want to ensure nobody, including yourself, can push directly to `master` and that Pull Request
-commits are squashed. To do this, you need to create a branch protection rule for `master`. The most
-important rules to enable are:
-
-- Require pull request reviews before merging.
-- Require linear history.
-
-Note that the **Branches** settings will not be available until you've pushed to a branch.
-
-That having been said, I wouldn't recommend locking down your repository until you've got the
-initial scaffolding in place.
-
-### Merge button
-
-Under **Options**, uncheck **Allow merge commits** and **Allow rebase merging** as we only want
-squashed commits.
-
-Now when you approve a Pull Request, you'll be prompted for a commit message. It's important that
-this commit message follows the correct format so `semantic-release` can appropriately version,
-release, and publish your package.
 
 ## Packages
 
@@ -102,14 +101,8 @@ npm publish
 
 ## Dependabot
 
-Enable the [Dependabot Preview](https://github.com/marketplace/dependabot-preview) app from GitHub
-Marketplace. Eventually this will be incorporated into GitHub directly.
-
 The Dependabot settings are in [`.dependabot/config.yml`](./.dependabot/config.yml).
 
-## CodeCov
+## Codecov
 
-Enable the [Codecov](https://github.com/marketplace/codecov) app from the GitHub marketplace.
-
-The Codecov action is used in [`.github/workflows/build.yml`](./.github/workflows/build.yml). Public
-repositories do not require a Codecov API token.
+The Codecov action is used in [`.github/workflows/build.yml`](./.github/workflows/build.yml).
