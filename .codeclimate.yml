@@ -1,0 +1,47 @@
+version: '2'
+
+checks:
+  argument-count:
+    enabled: true
+    config: {}
+  complex-logic:
+    enabled: true
+    config: {}
+  file-lines:
+    enabled: true
+    config: {}
+  method-complexity:
+    enabled: true
+    config: {}
+  method-count:
+    enabled: true
+    config: {}
+  method-lines:
+    enabled: true
+    config: {}
+  nested-control-flow:
+    enabled: true
+    config: {}
+  return-statements:
+    enabled: true
+    config: {}
+  similar-code:
+    enabled: true
+    config: {}
+  identical-code:
+    enabled: true
+    config: {}
+
+plugins:
+  duplication:
+    enabled: true
+    config: {}
+  fixme:
+    enabled: true
+    config: {}
+
+exclude_patterns:
+  - coverage/
+  - dist/
+  - node_modules/
+  - '**/*.d.ts'

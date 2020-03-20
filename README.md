@@ -9,6 +9,12 @@
   <a href="https://github.com/adamelliotfields/github-sandbox/actions" target="_blank" rel="noopener noreferrer">
     <img src="https://img.shields.io/github/workflow/status/adamelliotfields/github-sandbox/build?logo=github" alt="build">
   </a>
+  <a href="https://codeclimate.com/github/adamelliotfields/github-sandbox" target="_blank" rel="noopener noreferrer">
+    <img src="https://badgen.net/codeclimate/maintainability/adamelliotfields/github-sandbox?icon=codeclimate&label=maintainability" alt="maintainability">
+  </a>
+  <a href="https://codeclimate.com/github/adamelliotfields/github-sandbox" target="_blank" rel="noopener noreferrer">
+    <img src="https://badgen.net/codeclimate/coverage/adamelliotfields/github-sandbox?icon=codeclimate&label=coverage" alt="coverage">
+  </a>
   <a href="https://codecov.io/gh/adamelliotfields/github-sandbox" target="_blank" rel="noopener noreferrer">
     <img src="https://badgen.net/codecov/c/github/adamelliotfields/github-sandbox?icon=codecov&label=codecov" alt="codecov" />
   </a>
@@ -29,6 +35,9 @@ need help with something or have a suggestion just open an [issue](https://githu
 - Enable the [Codecov](https://github.com/marketplace/codecov) app from the GitHub marketplace. You
   will also need to generate a Codecov [Upload Token](https://docs.codecov.io/docs/frequently-asked-questions#section-where-is-the-repository-upload-token-found)
   and store it in a secret named `CODECOV_TOKEN` in your repository.
+- Create a free [Code Climate](https://codeclimate.com/quality/pricing) account and add your
+  repository. In your Code Climate repository settings, copy your Test Reporter ID and store it in a
+  secret named `CC_TEST_REPORTER_ID` in your GitHub repository.
 - Enable the [Dependabot Preview](https://github.com/marketplace/dependabot-preview) app from GitHub
   Marketplace.
 
@@ -106,3 +115,7 @@ The Dependabot settings are in [`.dependabot/config.yml`](./.dependabot/config.y
 ## Codecov
 
 The Codecov action is used in [`.github/workflows/build.yml`](./.github/workflows/build.yml).
+
+## Code Climate
+
+The Code Climate settings are in [`.codeclimate.yml`](./.codeclimate.yml).
