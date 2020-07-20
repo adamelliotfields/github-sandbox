@@ -108,14 +108,90 @@ EOF
 npm publish
 ```
 
-## Dependabot
-
-The Dependabot settings are in [`.dependabot/config.yml`](./.dependabot/config.yml).
-
 ## Codecov
 
 The Codecov action is used in [`.github/workflows/build.yml`](./.github/workflows/build.yml).
 
 ## Code Climate
 
-The Code Climate settings are in [`.codeclimate.yml`](./.codeclimate.yml).
+Create a `.codeclimate.yml` file like below:
+
+```yaml
+version: '2'
+
+checks:
+  argument-count:
+    enabled: true
+    config: {}
+  complex-logic:
+    enabled: true
+    config: {}
+  file-lines:
+    enabled: true
+    config: {}
+  method-complexity:
+    enabled: true
+    config: {}
+  method-count:
+    enabled: true
+    config: {}
+  method-lines:
+    enabled: true
+    config: {}
+  nested-control-flow:
+    enabled: true
+    config: {}
+  return-statements:
+    enabled: true
+    config: {}
+  similar-code:
+    enabled: true
+    config: {}
+  identical-code:
+    enabled: true
+    config: {}
+
+plugins:
+  duplication:
+    enabled: true
+    config: {}
+  fixme:
+    enabled: true
+    config: {}
+
+exclude_patterns:
+  - coverage/
+  - dist/
+  - node_modules/
+  - '**/*.d.ts'
+```
+
+Then add this step to `.github/workflows/build.yml` (below the `Codecov` step):
+
+```yaml
+- name: Code Climate
+  run: |
+    export GIT_COMMIT_SHA="$GITHUB_SHA"
+    export GIT_BRANCH="${GITHUB_REF/refs\/heads\//}"
+    sudo wget -qO /usr/local/bin/cc-test-reporter https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+    sudo chmod +x /usr/local/bin/cc-test-reporter
+    cc-test-reporter format-coverage -t lcov ./coverage/lcov.info
+    cc-test-reporter upload-coverage
+```
+
+## Dependabot
+
+Create a `.dependabot/config.yml` file like below:
+
+```yaml
+version: 1
+
+update_configs:
+  - package_manager: javascript
+    directory: '/'
+    update_schedule: weekly
+    default_reviewers:
+      - adamelliotfields
+    default_labels:
+      - dependabot
+```

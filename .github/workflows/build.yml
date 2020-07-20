@@ -55,15 +55,6 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
 
-      - name: Code Climate
-        run: |
-          export GIT_COMMIT_SHA="$GITHUB_SHA"
-          export GIT_BRANCH="${GITHUB_REF/refs\/heads\//}"
-          sudo wget -qO /usr/local/bin/cc-test-reporter https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
-          sudo chmod +x /usr/local/bin/cc-test-reporter
-          cc-test-reporter format-coverage -t lcov ./coverage/lcov.info
-          cc-test-reporter upload-coverage
-
       - name: Build
         run: npm run build
 
